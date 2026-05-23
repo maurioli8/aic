@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIC - Academia de Informática y Computación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --blue: #1a3a6b;
+    --blue-mid: #1e4d9a;
+    --green: #00d46a;
+    --green-dark: #00a854;
+    --green-glow: rgba(0, 212, 106, 0.2);
+    --white: #ffffff;
+    --off-white: #f4f7fc;
+    --gray-light: #e8edf6;
+    --gray: #8a9ab5;
+    --text: #0a1628;
+    --text-light: #4a5a7a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 212, 106, 0.15);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo-icon {
+    width: 40px; height: 40px;
+    background: var(--green);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 18px;
+    color: var(--navy);
+  }
+
+  .nav-logo-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 16px;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .nav-logo-text span { color: var(--green); display: block; font-size: 11px; font-weight: 400; letter-spacing: 2px; }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 28px; list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+
+  .nav-cta {
+    background: var(--green); color: var(--navy) !important;
+    padding: 8px 20px; border-radius: 6px;
+    font-weight: 700 !important; font-size: 13px !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: #00f07a !important; transform: translateY(-1px); }
+
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer;
+    background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--white); border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .mobile-menu {
+    display: none; position: fixed; top: 70px; left: 0; right: 0;
+    background: var(--navy); z-index: 99;
+    padding: 24px 5%; flex-direction: column; gap: 20px;
+    border-bottom: 2px solid var(--green);
+  }
+  .mobile-menu a {
+    color: rgba(255,255,255,0.85); text-decoration: none;
+    font-size: 16px; font-weight: 500; padding: 4px 0;
+  }
+  .mobile-menu.open { display: flex; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 100px 5% 60px;
+  }
+
+  .hero-grid-lines {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(0,212,106,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,106,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-glow {
+    position: absolute; top: -100px; right: -150px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,106,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-glow-2 {
+    position: absolute; bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(30,77,154,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 680px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,212,106,0.1);
+    border: 1px solid rgba(0,212,106,0.3);
+    border-radius: 100px; padding: 6px 16px;
+    margin-bottom: 24px;
+    color: var(--green); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  .hero-badge::before {
+    content: ''; width: 7px; height: 7px;
+    background: var(--green); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800; line-height: 1.1;
+    color: var(--white); margin-bottom: 20px;
+    letter-spacing: -1px;
+  }
+
+  h1 em {
+    font-style: normal; color: var(--green);
+    position: relative;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(255,255,255,0.65); line-height: 1.7;
+    margin-bottom: 36px; max-width: 520px;
+  }
+
+  .hero-btns {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: var(--navy);
+    padding: 14px 28px; border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 15px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.25s; box-shadow: 0 0 30px rgba(0,212,106,0.3);
+  }
+  .btn-primary:hover {
+    background: #00f07a;
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(0,212,106,0.5);
+  }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--white);
+    padding: 14px 28px; border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600; font-size: 15px;
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    transition: all 0.25s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--green); color: var(--green);
+    transform: translateY(-2px);
+  }
+
+  .hero-image-block {
+    position: absolute; right: 5%; top: 50%;
+    transform: translateY(-50%);
+    width: min(42%, 500px);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+
+  .hero-img-card {
+    border-radius: 16px; overflow: hidden;
+    background: var(--blue);
+    border: 1px solid rgba(0,212,106,0.2);
+    aspect-ratio: 3/4;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 10px;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px; text-align: center; padding: 16px;
+    position: relative;
+  }
+  .hero-img-card:first-child { margin-top: 30px; }
+  .hero-img-card:nth-child(3) { margin-top: -20px; }
+
+  .hero-img-icon { font-size: 36px; opacity: 0.5; }
+
+  .stats-bar {
+    display: flex; gap: 40px; margin-top: 48px;
+    flex-wrap: wrap;
+  }
+
+  .stat { }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800; color: var(--green);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.5px; margin-top: 4px;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 80px 5%; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--green); font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 20px; height: 2px; background: var(--green);
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+
+  /* ── FEATURES ── */
+  #features {
+    background: var(--off-white);
+  }
+
+  .features-header { text-align: center; margin-bottom: 56px; }
+  .features-header .section-label { justify-content: center; }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px; max-width: 1100px; margin: 0 auto;
+  }
+
+  .feature-card {
+    background: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 16px; padding: 36px 28px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--green);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(10,22,40,0.08); }
+  .feature-card:hover::before { transform: scaleX(1); }
+
+  .feature-icon {
+    width: 64px; height: 64px; border-radius: 14px;
+    background: rgba(0,212,106,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; margin: 0 auto 20px;
+    border: 1px solid rgba(0,212,106,0.15);
+  }
+
+  .feature-card h3 {
+    font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: var(--navy);
+  }
+  .feature-card p { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+
+  /* ── COURSES ── */
+  #cursos { background: var(--white); }
+
+  .courses-header { text-align: center; margin-bottom: 56px; }
+  .courses-header .section-label { justify-content: center; }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px; max-width: 1100px; margin: 0 auto;
+  }
+
+  .course-card {
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--gray-light);
+    transition: all 0.3s;
+    display: flex; flex-direction: column;
+  }
+  .course-card:hover { transform: translateY(-8px); box-shadow: 0 30px 70px rgba(10,22,40,0.1); }
+
+  .course-card-header {
+    padding: 32px 28px 24px;
+    position: relative; overflow: hidden;
+  }
+
+  .course-card-header.blue {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  }
+  .course-card-header.green {
+    background: linear-gradient(135deg, #0a2e1a 0%, #0d4a2c 100%);
+  }
+  .course-card-header.tech {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1a2e5a 100%);
+  }
+
+  .course-card-header::after {
+    content: ''; position: absolute;
+    top: -40px; right: -40px;
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .course-icon-big {
+    font-size: 48px; margin-bottom: 16px;
+    display: block;
+  }
+
+  .course-tag {
+    display: inline-block;
+    background: rgba(0,212,106,0.15);
+    color: var(--green); font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px;
+    border: 1px solid rgba(0,212,106,0.25);
+    margin-bottom: 12px;
+  }
+
+  .course-card-header h3 {
+    font-size: 1.35rem; font-weight: 800;
+    color: var(--white); line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .course-card-header p {
+    font-size: 13px; color: rgba(255,255,255,0.6);
+  }
+
+  .course-image-placeholder {
+    background: rgba(255,255,255,0.05);
+    border: 1px dashed rgba(255,255,255,0.15);
+    border-radius: 10px; height: 100px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.3); font-size: 11px;
+    text-align: center; padding: 12px; margin-top: 16px;
+    gap: 6px;
+  }
+
+  .course-body {
+    padding: 24px 28px 28px;
+    flex: 1; display: flex; flex-direction: column; gap: 12px;
+    background: var(--white);
+  }
+
+  .course-level {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 14px; border-radius: 10px;
+    background: var(--off-white);
+    border: 1px solid var(--gray-light);
+  }
+
+  .course-level-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0; margin-top: 5px;
+  }
+
+  .course-level-info {}
+  .course-level-info strong {
+    font-size: 13px; font-weight: 700; color: var(--navy); display: block;
+  }
+  .course-level-info span { font-size: 12px; color: var(--text-light); }
+
+  .course-detail-strip {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--text-light);
+    padding: 8px 14px;
+    background: rgba(0,212,106,0.05);
+    border-radius: 8px; border: 1px solid rgba(0,212,106,0.1);
+  }
+  .course-detail-strip strong { color: var(--green); }
+
+  .course-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--text-light);
+    padding: 6px 0; border-bottom: 1px solid var(--gray-light);
+  }
+  .course-item:last-child { border-bottom: none; }
+  .course-item::before {
+    content: '›'; color: var(--green); font-size: 18px;
+    font-weight: 700; flex-shrink: 0;
+  }
+
+  .course-schedule {
+    background: var(--navy); color: var(--white);
+    border-radius: 10px; padding: 14px 16px;
+    font-size: 13px; text-align: center; line-height: 1.5;
+  }
+  .course-schedule strong { color: var(--green); display: block; margin-bottom: 4px; }
+
+  .course-cta {
+    margin-top: auto; padding-top: 8px;
+  }
+
+  .btn-course {
+    display: block; text-align: center;
+    background: var(--green); color: var(--navy);
+    padding: 12px; border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-course:hover { background: #00f07a; }
+
+  /* ── PROMOS ── */
+  #promos {
+    background: var(--navy);
+    position: relative; overflow: hidden;
+  }
+
+  #promos::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,106,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,106,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .promos-header { text-align: center; margin-bottom: 56px; position: relative; z-index: 1; }
+  .promos-header .section-title { color: var(--white); }
+
+  .promos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; max-width: 1000px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  .promo-card {
+    border-radius: 18px; padding: 32px 28px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(0,212,106,0.2);
+    transition: all 0.3s;
+    text-align: center;
+  }
+  .promo-card:hover {
+    background: rgba(0,212,106,0.06);
+    border-color: rgba(0,212,106,0.4);
+    transform: translateY(-4px);
+  }
+
+  .promo-badge {
+    display: inline-block;
+    background: var(--green); color: var(--navy);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 11px;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 100px;
+    margin-bottom: 20px;
+  }
+
+  .promo-icon { font-size: 48px; margin-bottom: 16px; }
+
+  .promo-card h3 {
+    font-size: 1.25rem; font-weight: 800;
+    color: var(--white); margin-bottom: 12px;
+  }
+
+  .promo-card p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+  .promo-highlight {
+    font-size: 2rem; font-weight: 800;
+    font-family: 'Syne', sans-serif;
+    color: var(--green); margin: 16px 0 8px;
+  }
+
+  /* ── CONTACT ── */
+  #contacto { background: var(--off-white); }
+  .contact-wrap {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; max-width: 1000px; margin: 0 auto;
+    align-items: center;
+  }
+
+  .contact-info h2 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+  .contact-info p { color: var(--text-light); line-height: 1.7; margin-bottom: 32px; }
+
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .contact-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--navy); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+
+  .contact-item-text strong {
+    display: block; font-size: 14px; font-weight: 700;
+    color: var(--navy); margin-bottom: 2px;
+  }
+  .contact-item-text span { font-size: 14px; color: var(--text-light); }
+
+  .social-links { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+  .social-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--navy); color: var(--white);
+    padding: 10px 18px; border-radius: 8px;
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .social-btn:hover { background: var(--blue-mid); transform: translateY(-2px); }
+
+  .contact-form-box {
+    background: var(--white);
+    border-radius: 20px; padding: 36px;
+    border: 1px solid var(--gray-light);
+    box-shadow: 0 20px 60px rgba(10,22,40,0.06);
+  }
+
+  .contact-form-box h3 {
+    font-size: 1.25rem; font-weight: 800;
+    margin-bottom: 8px; color: var(--navy);
+  }
+  .contact-form-box p { font-size: 13px; color: var(--text-light); margin-bottom: 24px; }
+
+  .form-group { margin-bottom: 16px; }
+
+  .form-group label {
+    display: block; font-size: 12px; font-weight: 600;
+    color: var(--text-light); letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--gray-light);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--text);
+    background: var(--off-white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--green);
+    background: var(--white);
+  }
+  .form-group textarea { height: 90px; resize: none; }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--green); color: var(--navy);
+    border: none; border-radius: 8px;
+    padding: 14px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 15px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-submit:hover { background: #00f07a; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.55);
+    padding: 40px 5% 28px;
+    text-align: center;
+    border-top: 1px solid rgba(0,212,106,0.15);
+  }
+
+  .footer-logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 20px;
+  }
+  .footer-logo-icon {
+    width: 36px; height: 36px; background: var(--green);
+    border-radius: 7px; display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; color: var(--navy);
+  }
+  .footer-logo-text {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--white);
+  }
+
+  .footer-links {
+    display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+    list-style: none; margin: 16px 0 24px;
+  }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--green); }
+
+  .footer-bottom { font-size: 12px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; margin-top: 8px; }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 28px; z-index: 200;
+    width: 60px; height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+    text-decoration: none;
+    animation: waBounce 3s ease infinite;
+    transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.1); animation-play-state: paused; }
+  .wa-float svg { width: 30px; height: 30px; }
+
+  .wa-tooltip {
+    position: absolute; right: 72px; top: 50%;
+    transform: translateY(-50%);
+    background: var(--navy); color: var(--white);
+    font-size: 13px; font-weight: 600;
+    white-space: nowrap; padding: 8px 14px;
+    border-radius: 8px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .wa-float:hover .wa-tooltip { opacity: 1; }
+
+  @keyframes waBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: all 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-image-block { display: none; }
+    .hero-content { max-width: 100%; }
+    .contact-wrap { grid-template-columns: 1fr; gap: 36px; }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 56px 5%; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-secondary { justify-content: center; }
+    .stats-bar { gap: 24px; }
+    .social-links { flex-direction: column; }
+    .social-btn { justify-content: center; }
+    .wa-float { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">AIC</div>
+    <div class="nav-logo-text">
+      Academia AIC
+      <span>Informática & Computación</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Por qué elegirnos</a></li>
+    <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#promos">Beneficios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://wa.me/5492226574440" class="nav-cta">📲 Inscribirse</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features" onclick="closeMenu()">Por qué elegirnos</a>
+  <a href="#cursos" onclick="closeMenu()">Cursos</a>
+  <a href="#promos" onclick="closeMenu()">Beneficios</a>
+  <a href="#contacto" onclick="closeMenu()">Contacto</a>
+  <a href="https://wa.me/5492226574440" style="color: #00d46a; font-weight: 700;">📲 Inscribirse ahora</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Inscripción abierta</div>
+    <h1>INFORMÁTICA:<br><em>Tecnología</em><br>para todas las edades</h1>
+    <p class="hero-sub">Formación digital para tu desarrollo académico y profesional. Presencial y virtual, grupos reducidos, a tu ritmo.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/5492226574440?text=Hola!%20Quiero%20inscribirme%20en%20AIC" class="btn-primary">
+        ✅ Inscripción Abierta
+      </a>
+      <a href="#contacto" class="btn-secondary">
+        Contactanos →
+      </a>
+    </div>
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Programas educativos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">6-99</div>
+        <div class="stat-label">Años de edad</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Matrícula UCES bonificada</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image placeholders -->
+  <div class="hero-image-block">
+    <div class="hero-img-card">
+      <div class="hero-img-icon">👧🤖</div>
+      <div>📸 Foto: niños<br>con robots</div>
+    </div>
+    <div class="hero-img-card">
+      <div class="hero-img-icon">💻</div>
+      <div>📸 Foto: alumno<br>programando</div>
+    </div>
+    <div class="hero-img-card">
+      <div class="hero-img-icon">🧑‍🎓</div>
+      <div>📸 Clase<br>presencial</div>
+    </div>
+    <div class="hero-img-card">
+      <div class="hero-img-icon">🤖✨</div>
+      <div>📸 Robot<br>mascota AIC</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="features-header reveal">
+    <div class="section-label">Por qué elegirnos</div>
+    <h2 class="section-title">Aprendé con la academia<br>que entiende tus necesidades</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">🖥️📱</div>
+      <h3>Clases presenciales y virtuales</h3>
+      <p>Flexibilidad total para aprender desde donde estés. Modalidades adaptadas a tu rutina y preferencia.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">👥</div>
+      <h3>Grupos reducidos</h3>
+      <p>Atención personalizada garantizada. Cada alumno recibe el acompañamiento que necesita para avanzar.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">📅</div>
+      <h3>Inscripción abierta todo el año</h3>
+      <p>Empezás cuando vos querés. Sin esperar ciclos escolares ni fechas límite.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🎯</div>
+      <h3>Currícula actualizada</h3>
+      <p>Contenidos alineados con el mercado laboral actual: ofimática, programación e Inteligencia Artificial.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">👨‍👩‍👧‍👦</div>
+      <h3>Para toda la familia</h3>
+      <p>Desde 6 años hasta adultos y comerciantes. Un espacio educativo pensado para cada etapa de la vida.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🏆</div>
+      <h3>Docentes especializados</h3>
+      <p>Equipo formado en pedagogía tecnológica, con experiencia real en el sector IT.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="cursos">
+  <div class="courses-header reveal">
+    <div class="section-label">Oferta educativa</div>
+    <h2 class="section-title">Nuestros cursos</h2>
+  </div>
+
+  <div class="courses-grid">
+
+    <!-- Card 1: Programación y Robótica -->
+    <div class="course-card reveal">
+      <div class="course-card-header blue">
+        <span class="course-icon-big">🤖</span>
+        <div class="course-tag">Niños y adolescentes</div>
+        <h3>Programación<br>y Robótica</h3>
+        <p>Crea · Aprende · Innova</p>
+        <div class="course-image-placeholder">
+          📸 Insertar foto de alumnos con robots o código
+        </div>
+      </div>
+      <div class="course-body">
+        <div class="course-level">
+          <div class="course-level-dot"></div>
+          <div class="course-level-info">
+            <strong>🐣 Nivel Kids</strong>
+            <span>De 6 a 9 años</span>
+          </div>
+        </div>
+        <div class="course-level">
+          <div class="course-level-dot"></div>
+          <div class="course-level-info">
+            <strong>🚀 Nivel Junior</strong>
+            <span>De 10 a 13 años</span>
+          </div>
+        </div>
+        <div class="course-level">
+          <div class="course-level-dot"></div>
+          <div class="course-level-info">
+            <strong>💡 Adolescentes</strong>
+            <span>De 14 a 18 años</span>
+          </div>
+        </div>
+        <div class="course-detail-strip">⏱️ <strong>1 hora semanal</strong> · Grupos por nivel de edad</div>
+        <div class="course-cta">
+          <a href="https://wa.me/5492226574440?text=Hola!%20Quiero%20info%20sobre%20Programaci%C3%B3n%20y%20Rob%C3%B3tica" class="btn-course">Consultar por este curso →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Formación Digital -->
+    <div class="course-card reveal">
+      <div class="course-card-header green">
+        <span class="course-icon-big">💼</span>
+        <div class="course-tag">Jóvenes y adultos</div>
+        <h3>Formación<br>Digital</h3>
+        <p>Herramientas para el trabajo y la vida cotidiana</p>
+        <div class="course-image-placeholder">
+          📸 Insertar foto de adultos en computadora / celular
+        </div>
+      </div>
+      <div class="course-body">
+        <div class="course-item">Uso de celular y computadora</div>
+        <div class="course-item">Word Básico e Intermedio</div>
+        <div class="course-item">Excel Básico e Intermedio</div>
+        <div class="course-item">Google Drive · Docs · Sheets · Forms</div>
+        <div class="course-detail-strip">📚 <strong>Módulos de 8 clases</strong> · 1 hora por semana</div>
+        <div class="course-cta">
+          <a href="https://wa.me/5492226574440?text=Hola!%20Quiero%20info%20sobre%20Formaci%C3%B3n%20Digital" class="btn-course">Consultar por este curso →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: IA -->
+    <div class="course-card reveal">
+      <div class="course-card-header tech">
+        <span class="course-icon-big">🧠</span>
+        <div class="course-tag">Comerciantes y Emprendedores</div>
+        <h3>Inteligencia<br>Artificial</h3>
+        <p>Potenciá tu negocio con IA</p>
+        <div class="course-image-placeholder">
+          📸 Insertar captura de pantalla de herramienta IA en uso
+        </div>
+      </div>
+      <div class="course-body">
+        <div class="course-level" style="background: rgba(0,212,106,0.05); border-color: rgba(0,212,106,0.2);">
+          <div class="course-level-dot"></div>
+          <div class="course-level-info">
+            <strong>Exclusivo para negocios</strong>
+            <span>Comerciantes y emprendedores</span>
+          </div>
+        </div>
+        <div class="course-detail-strip">📆 <strong>4 clases</strong> · 1,5 horas semanales</div>
+        <div class="course-schedule">
+          <strong>📅 Días disponibles:</strong>
+          Lunes o Miércoles<br>
+          🕗 20:00 a 21:30 hs
+        </div>
+        <div class="course-cta">
+          <a href="https://wa.me/5492226574440?text=Hola!%20Quiero%20info%20sobre%20el%20curso%20de%20Inteligencia%20Artificial" class="btn-course">Reservar mi lugar →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROMOS -->
+<section id="promos">
+  <div class="promos-header reveal">
+    <div class="section-label" style="justify-content: center; color: var(--green);">Promociones</div>
+    <h2 class="section-title" style="color: var(--white);">Beneficios exclusivos<br>para nuestros alumnos</h2>
+  </div>
+
+  <div class="promos-grid">
+    <div class="promo-card reveal">
+      <div class="promo-badge">Promo Familia</div>
+      <div class="promo-icon">👨‍👩‍👧</div>
+      <h3>Más alumnos, más ahorro</h3>
+      <p>¿Inscribís a más de un hijo? Accedé a condiciones especiales en los cursos de niños y adolescentes. ¡La familia que aprende junta, crece junta!</p>
+    </div>
+
+    <div class="promo-card reveal">
+      <div class="promo-badge">Promo Combo</div>
+      <div class="promo-icon">🎁</div>
+      <h3>2 módulos = más descuento</h3>
+      <p>Inscribite en 2 módulos de Formación Digital al mismo tiempo y obtené un descuento especial. Aprendé más y pagás menos.</p>
+    </div>
+
+    <div class="promo-card reveal">
+      <div class="promo-badge">Beneficio UCES</div>
+      <div class="promo-icon">🎓</div>
+      <h3>Alumnos UCES</h3>
+      <div class="promo-highlight">100% bonificado</div>
+      <p>¿Estudiás en UCES? Tu matrícula está completamente bonificada. Presentá tu constancia de alumno activo y empezá sin costo inicial.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contacto">
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <div class="section-label">Contacto</div>
+      <h2 class="section-title">¿Tenés consultas?<br>¡Hablemos!</h2>
+      <p>Estamos para ayudarte a elegir el curso ideal. Respondemos rápido por WhatsApp.</p>
+
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-item-text">
+          <strong>Dirección</strong>
+          <span>Basavilbaso 813</span>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-item-text">
+          <strong>Teléfono / WhatsApp</strong>
+          <span>(2226) 57-4440</span>
+        </div>
+      </div>
+
+      <div class="social-links">
+        <a href="https://instagram.com/aicinformatica" class="social-btn" target="_blank">
+          📷 @aicinformatica
+        </a>
+        <a href="https://instagram.com/academia.aic" class="social-btn" target="_blank">
+          📷 @academia.aic
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form-box reveal">
+      <h3>Escribinos ahora</h3>
+      <p>Completá el formulario y te contactamos a la brevedad.</p>
+
+      <div class="form-group">
+        <label>NOMBRE COMPLETO</label>
+        <input type="text" placeholder="Tu nombre y apellido">
+      </div>
+      <div class="form-group">
+        <label>TELÉFONO / WHATSAPP</label>
+        <input type="tel" placeholder="Ej: (2226) 123-4567">
+      </div>
+      <div class="form-group">
+        <label>CURSO DE INTERÉS</label>
+        <select>
+          <option value="">— Seleccioná un curso —</option>
+          <option>Programación y Robótica (Niños/Adolescentes)</option>
+          <option>Formación Digital (Jóvenes/Adultos)</option>
+          <option>Inteligencia Artificial (Comerciantes)</option>
+          <option>Quiero más información general</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>MENSAJE (OPCIONAL)</label>
+        <textarea placeholder="Contanos cualquier duda..."></textarea>
+      </div>
+      <button class="btn-submit" onclick="sendWhatsApp()">
+        💬 Enviar por WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-icon">AIC</div>
+    <div class="footer-logo-text">Academia de Informática y Computación</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#features">Por qué elegirnos</a></li>
+    <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#promos">Beneficios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="footer-bottom">
+    <p>📍 Basavilbaso 813 &nbsp;·&nbsp; 📞 (2226) 57-4440 &nbsp;·&nbsp; 📷 @aicinformatica</p>
+    <p style="margin-top: 10px;">© 2025 AIC Academia de Informática y Computación · Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/5492226574440?text=Hola!%20Vi%20la%20web%20y%20quiero%20informaci%C3%B3n%20sobre%20los%20cursos%20de%20AIC" class="wa-float" target="_blank" aria-label="Contactar por WhatsApp">
+  <span class="wa-tooltip">Consultanos por WhatsApp</span>
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 2C8.268 2 2 8.268 2 16c0 2.462.658 4.77 1.806 6.766L2 30l7.51-1.783A13.927 13.927 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2z" fill="white"/>
+    <path d="M22.003 19.29c-.325-.163-1.924-.95-2.221-1.058-.298-.11-.515-.163-.733.163-.217.326-.842 1.058-.975 1.276-.133.217-.266.244-.49.081-.326-.163-1.355-.5-2.58-1.593-.954-.851-1.598-1.902-1.786-2.227-.188-.326-.02-.502.14-.664.144-.145.326-.379.489-.569.163-.189.217-.326.326-.543.108-.217.054-.407-.027-.57-.082-.163-.733-1.764-1.004-2.414-.264-.633-.532-.548-.733-.558-.19-.009-.407-.011-.624-.011-.217 0-.57.081-.869.407-.298.326-1.139 1.112-1.139 2.714s1.166 3.148 1.329 3.365c.163.217 2.293 3.503 5.553 4.912.777.335 1.383.535 1.856.685.78.248 1.49.213 2.051.129.626-.094 1.924-.787 2.194-1.547.271-.76.271-1.411.19-1.547-.081-.136-.298-.217-.624-.38z" fill="#25D366"/>
+  </svg>
+</a>
+
+<script>
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, entry.target.dataset.delay || 0);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 80;
+    observer.observe(el);
+  });
+
+  // WhatsApp form
+  function sendWhatsApp() {
+    const name = document.querySelector('input[type="text"]').value;
+    const phone = document.querySelector('input[type="tel"]').value;
+    const course = document.querySelector('select').value;
+    const msg = document.querySelector('textarea').value;
+
+    let text = `Hola! Te escribo desde la web de AIC 👋\n`;
+    if (name) text += `📌 Nombre: ${name}\n`;
+    if (phone) text += `📞 Teléfono: ${phone}\n`;
+    if (course) text += `📚 Curso de interés: ${course}\n`;
+    if (msg) text += `💬 Mensaje: ${msg}`;
+
+    window.open(`https://wa.me/5492226574440?text=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 30) {
+      nav.style.borderBottomColor = 'rgba(0,212,106,0.3)';
+    } else {
+      nav.style.borderBottomColor = 'rgba(0,212,106,0.15)';
+    }
+  });
+</script>
+</body>
+</html>
